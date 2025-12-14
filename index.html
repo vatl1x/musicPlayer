@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Music player</title>
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+    <script
+        src="https://kit.fontawesome.com/3a89d70ae0.js"
+        crossorigin="anonymous"
+    ></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img
+                src="media/img/kish.webp"
+                class="song-img"
+            >
+            <h1>Кукла колдуна</h1>
+            <p>Король и шут</p>
+            <audio id="song">
+                <source
+                    src="media/music/kish.mp3"
+                    type="audio/mpeg"
+                >
+            </audio>
+            <input
+                type="range"
+                value="0"
+                id="progress"
+            >
+            <div class="controls">
+                <div id="prevTrack"><i class="fa-solid fa-backward"></i></div>
+                <div id="playPause"><i class="fa-solid fa-play" id="ctrlIcon"></i></div>
+                <div id="nextTrack"><i class="fa-solid fa-forward"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="playlist-sidebar" id="playlistSidebar">
+        <div class="sidebar-header">
+            <h2>Плейлист</h2>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="playlist-items" id="playlist-items">
+            
+        </div>
+    </div>
+<script src="script.js"></script>
+</body>
+
+</html>
