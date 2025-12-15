@@ -2,8 +2,15 @@ let progress = document.getElementById("progress");
 let song = document.getElementById("song");
 let ctrlIcon = document.getElementById("ctrlIcon");
 const playAndPause = document.getElementById("playPause");
-const prevBtn = document.querySelector('#prevTrack')
-const nextBtn = document.querySelector('#nextTrack')
+const prevBtn = document.querySelector("#prevTrack");
+const nextBtn = document.querySelector("#nextTrack");
+const repeatBtn = document.querySelector("#repeatBtn");
+const mixBtn = document.querySelector("#mixBtn");
+let isRepeat = false;
+let isMix = false;
+
+const currentTimeDisplay = document.querySelector(".current-time");
+const durationDisplay = document.querySelector(".duration");
 
 const tracks = [
     {
@@ -18,7 +25,7 @@ const tracks = [
         img: "media/img/povod.webp",
         audio: "media/music/povod.mp3",
     },
-     {
+    {
         title: "Новогодняя",
         artist: "Дискотека Авария",
         img: "media/img/diskotekaAvaria.webp",
@@ -44,13 +51,21 @@ function prevTrack() {
     loadTrack(currentTrack);
     song.play();
 }
-prevBtn.addEventListener('click', prevTrack)
-nextBtn.addEventListener('click', nextTrack)
-
-song.onloadedmetadata = function () {
+prevBtn.addEventListener("click", prevTrack);
+nextBtn.addEventListener("click", nextTrack);
+//связано  с function formatTime
+song.addEventListener("loadedmetadata", function () {
+    //pr.max & pr.value используются для инпута времени
     progress.max = song.duration;
     progress.value = song.currentTime;
-};
+    //отображ времени окончания трека
+    durationDisplay.textContent = formatTime(song.duration);
+    
+});
+song.addEventListener("timeupdate", function () {
+    currentTimeDisplay.textContent = formatTime(song.currentTime);
+});
+
 song.volume = 0.025;
 
 function playPause() {
@@ -63,9 +78,13 @@ function playPause() {
 song.addEventListener("play", function () {
     ctrlIcon.classList.replace("fa-play", "fa-pause");
 });
-song.addEventListener("ended", function () {
-    nextTrack()
-});
+function handlerSongEnd() {
+    if (isRepeat) {
+        song.currentTime = 0;
+        song.play();
+    } else nextTrack();
+}
+song.addEventListener("ended", handlerSongEnd);
 
 song.addEventListener("pause", function () {
     ctrlIcon.classList.replace("fa-pause", "fa-play");
@@ -79,3 +98,19 @@ progress.addEventListener("change", function () {
     song.play();
 });
 playAndPause.addEventListener("click", playPause);
+
+repeatBtn.addEventListener("click", function () {
+    isRepeat = !isRepeat;
+    repeatBtn.classList.toggle("active");
+});
+mixBtn.addEventListener("click", function () {
+    isMix = !isMix;
+    mixBtn.classList.toggle("active");
+    //тут логика перемешки
+});
+
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const second = Math.round(seconds % 60);
+    return `${minutes}:${second < 10 ? "0" + second : second}`;
+}

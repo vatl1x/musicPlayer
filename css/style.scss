@@ -19,15 +19,39 @@ body {
     text-align: center;
     border-radius: 10%;
 }
-.player-nav {
+.timeline{
+    display: flex;
+    color: #57f72f;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.player-nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     margin-bottom: 30px;
     /* padding: 20px; */
+
+    &__left{
+        display: flex;
+    }
+
+    &__right{
+        display: flex;
+        gap: 10px;
+    }
+    &__btn{
+        background: #333030;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s
+
+        //hover active
+    }
 }
-.player-nav .circle {
+.circle{
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -36,6 +60,34 @@ body {
     color: #57f72f;
     box-shadow: 0 5px 10px rgba(92, 165, 110, 0.32);
 }
+#repeatBtn, #mixBtn{
+    svg {
+        color: #555252;
+        transition: transform 0.8s ease;
+    }
+    &.active{
+        svg{
+            color: currentColor;
+        }
+    }
+}
+#repeatBtn.active{
+    svg{
+        transform: rotate(360deg) ;
+    }
+}
+
+.player-nav__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    svg{
+        width: 20px;
+        aspect-ratio: 1;
+    }
+}
+
 .song-img {
     width: 220px;
     border-radius: 50%;
@@ -60,7 +112,7 @@ body {
     background: #57f72f;
     border-radius: 4px;
     cursor: pointer;
-    margin: 40px 0;
+    margin: 40px 0 20px;
 }
 #progress::-webkit-slider-thumb {
     -webkit-appearance: none;

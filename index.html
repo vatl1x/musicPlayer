@@ -10,7 +10,7 @@
     <title>Music player</title>
     <link
         rel="stylesheet"
-        href="style.css"
+        href="css/style.css"
     >
     <script
         src="https://kit.fontawesome.com/3a89d70ae0.js"
@@ -21,12 +21,101 @@
 <body>
     <div class="container">
         <div class="music-player">
-            <nav>
-                <div class="circle">
-                    <i class="fa-solid fa-angle-left"></i>
+            <nav class="player-nav">
+                <div class="player-nav__left">
+                    <button
+                        class="player-nav__btn circle"
+                        id="playlistBtn"
+                        aria-label="Плейлист"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M5 12H20"
+                                stroke=currentColor
+                                stroke-width="2"
+                                stroke-linecap="round"
+                            />
+                            <path
+                                d="M5 17H20"
+                                stroke=currentColor
+                                stroke-width="2"
+                                stroke-linecap="round"
+                            />
+                            <path
+                                d="M5 7H20"
+                                stroke=currentColor
+                                stroke-width="2"
+                                stroke-linecap="round"
+                            />
+                        </svg>
+                    </button>
                 </div>
-                <div class="circle">
-                    <i class="fa-solid fa-bars"></i>
+                <div class="player-nav__right">
+                    <button
+                        class="player-nav__btn circle"
+                        id="repeatBtn"
+                        aria-label="Повтор"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M8.46967 2.46967C8.76256 2.17678 9.23744 2.17678 9.53033 2.46967L11.5303 4.46967C11.7448 4.68417 11.809 5.00676 11.6929 5.28701C11.5768 5.56727 11.3033 5.75 11 5.75H9C5.54822 5.75 2.75 8.54822 2.75 12C2.75 15.4517 5.54846 18.25 9.00028 18.25H9.5C9.91421 18.25 10.25 18.5858 10.25 19C10.25 19.4142 9.91421 19.75 9.5 19.75H9.00028C4.72011 19.75 1.25 16.2802 1.25 12C1.25 7.71979 4.71979 4.25 9 4.25H9.18934L8.46967 3.53033C8.17678 3.23744 8.17678 2.76256 8.46967 2.46967ZM13.75 5C13.75 4.58579 14.0858 4.25 14.5 4.25H15C19.2802 4.25 22.75 7.71979 22.75 12C22.75 16.2802 19.2802 19.75 15 19.75H14.8107L15.5303 20.4697C15.8232 20.7626 15.8232 21.2374 15.5303 21.5303C15.2374 21.8232 14.7626 21.8232 14.4697 21.5303L12.4697 19.5303C12.2552 19.3158 12.191 18.9932 12.3071 18.713C12.4232 18.4327 12.6967 18.25 13 18.25H15C18.4518 18.25 21.25 15.4518 21.25 12C21.25 8.54822 18.4518 5.75 15 5.75H14.5C14.0858 5.75 13.75 5.41421 13.75 5Z"
+                                fill=currentColor
+                            />
+                        </svg></button>
+                    <button
+                        class="player-nav__btn circle"
+                        id="mixBtn"
+                        aria-label="Перемешка"
+                    ><svg
+                            viewBox="0 0 512 512"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M226.597,200.834611 L296.853333,271.084945 L353.819,271.084 L326.248389,243.503223 L356.418278,213.333333 L435.503223,292.418278 L356.418278,371.503223 L326.248389,341.333333 L353.82,313.751 L279.163435,313.751611 L196.418,231.011611 L226.597,200.834611 Z M356.418278,1.42108547e-14 L435.503223,79.0849447 L356.418278,158.169889 L326.248389,128 L353.82,100.418 L296.853333,100.418278 L83.503232,313.751611 L-1.0658141e-13,313.751611 L-1.03968831e-13,271.084945 L65.8133333,271.084945 L279.163435,57.7516113 L353.82,57.751 L326.248389,30.1698893 L356.418278,1.42108547e-14 Z M83.503232,57.7516113 L166.248,140.490611 L136.069,170.667611 L65.8133333,100.418278 L-1.0658141e-13,100.418278 L-1.0658141e-13,57.7516113 L83.503232,57.7516113 Z"
+                                fill="currentColor"
+                                transform="translate(42.666667, 70.248389)"
+                            />
+                        </svg>
+                    </button>
+                    <button
+                        class="player-nav__btn circle"
+                        id="volumeBtn"
+                        aria-label="Громкость"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M20 6C20 6 21.5 7.8 21.5 12C21.5 16.2 20 18 20 18"
+                                stroke=currentColor
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                            />
+                            <path
+                                d="M18 9C18 9 18.5 9.9 18.5 12C18.5 14.1 18 15 18 15"
+                                stroke=currentColor
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                            />
+                            <path
+                                d="M1.95863 8.57679C2.24482 8.04563 2.79239 7.53042 3.33997 7.27707C3.9393 6.99979 4.62626 6.99979 6.00018 6.99979C6.51225 6.99979 6.76828 6.99979 7.01629 6.95791C7.26147 6.9165 7.50056 6.84478 7.72804 6.74438C7.95815 6.64283 8.1719 6.50189 8.59941 6.22002L8.81835 6.07566C11.3613 4.39898 12.6328 3.56063 13.7001 3.92487C13.9048 3.9947 14.1029 4.09551 14.2798 4.21984C15.2025 4.86829 15.2726 6.37699 15.4128 9.3944C15.4647 10.5117 15.5001 11.4679 15.5001 11.9998C15.5001 12.5317 15.4647 13.4879 15.4128 14.6052C15.2726 17.6226 15.2025 19.1313 14.2798 19.7797C14.1029 19.9041 13.9048 20.0049 13.7001 20.0747C12.6328 20.4389 11.3613 19.6006 8.81834 17.9239L8.59941 17.7796C8.1719 17.4977 7.95815 17.3567 7.72804 17.2552C7.50056 17.1548 7.26147 17.0831 7.01629 17.0417C6.76828 16.9998 6.51225 16.9998 6.00018 16.9998C4.62626 16.9998 3.9393 16.9998 3.33997 16.7225C2.79239 16.4692 2.24482 15.9539 1.95863 15.4228C1.6454 14.8414 1.60856 14.237 1.53488 13.0282C1.52396 12.849 1.51525 12.6722 1.50928 12.4998"
+                                stroke=currentColor
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                            />
+                        </svg></button>
                 </div>
             </nav>
             <img
@@ -46,25 +135,74 @@
                 value="0"
                 id="progress"
             >
+            <div class="timeline">
+                <span class="current-time">0:00</span>
+                <span class="duration">0:00</span>
+            </div>
             <div class="controls">
                 <div id="prevTrack"><i class="fa-solid fa-backward"></i></div>
-                <div id="playPause"><i class="fa-solid fa-play" id="ctrlIcon"></i></div>
+                <div id="playPause">
+                    <svg
+                        class="icon-play"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M21.4086 9.35258C23.5305 10.5065 23.5305 13.4935 21.4086 14.6474L8.59662 21.6145C6.53435 22.736 4 21.2763 4 18.9671L4 5.0329C4 2.72368 6.53435 1.26402 8.59661 2.38548L21.4086 9.35258Z"
+                            fill=currentColor
+                        />
+                    </svg>
+
+                    <svg
+                        class="icon-pause"
+                        viewBox="-0.5 0 25 25"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M10 6.42004C10 4.76319 8.65685 3.42004 7 3.42004C5.34315 3.42004 4 4.76319 4 6.42004V18.42C4 20.0769 5.34315 21.42 7 21.42C8.65685 21.42 10 20.0769 10 18.42V6.42004Z"
+                            stroke=currentColor
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M20 6.42004C20 4.76319 18.6569 3.42004 17 3.42004C15.3431 3.42004 14 4.76319 14 6.42004V18.42C14 20.0769 15.3431 21.42 17 21.42C18.6569 21.42 20 20.0769 20 18.42V6.42004Z"
+                            stroke=currentColor
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </div>
+                <!-- ctrlIcon  30*25-->
+
                 <div id="nextTrack"><i class="fa-solid fa-forward"></i></div>
             </div>
         </div>
     </div>
-    <div class="playlist-sidebar" id="playlistSidebar">
+    <div
+        class="playlist-sidebar"
+        id="playlistSidebar"
+    >
         <div class="sidebar-header">
             <h2>Плейлист</h2>
-            <button class="close-sidebar" id="closeSidebar">
+            <button
+                class="close-sidebar"
+                id="closeSidebar"
+            >
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
-        <div class="playlist-items" id="playlist-items">
-            
+        <div
+            class="playlist-items"
+            id="playlist-items"
+        >
+
         </div>
     </div>
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
