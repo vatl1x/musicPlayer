@@ -1,214 +1,414 @@
+@charset "UTF-8";
+/**
+  Нормализация блочной модели
+ */
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+/**
+  Убираем внутренние отступы слева тегам списков,
+  у которых есть атрибут class
+ */
+:where(ul, ol):where([class]) {
+    padding-left: 0;
+}
+
+/**
+  Убираем внешние отступы body и двум другим тегам,
+  у которых есть атрибут class
+ */
+body,
+:where(blockquote, figure):where([class]) {
+    margin: 0;
+}
+
+/**
+  Убираем внешние отступы вертикали нужным тегам,
+  у которых есть атрибут class
+ */
+:where(h1, h2, h3, h4, h5, h6, p, ul, ol, dl):where([class]) {
+    margin-block: 0;
+}
+
+:where(dd[class]) {
+    margin-left: 0;
+}
+
+:where(fieldset[class]) {
+    margin-left: 0;
+    padding: 0;
+    border: none;
+}
+
+/**
+  Убираем стандартный маркер маркированному списку,
+  у которого есть атрибут class
+ */
+:where(ul[class]) {
+    list-style: none;
+}
+
+:where(address[class]) {
+    font-style: normal;
+}
+
+/**
+  Обнуляем вертикальные внешние отступы параграфа,
+  объявляем локальную переменную для внешнего отступа вниз,
+  чтобы избежать взаимодействие с более сложным селектором
+ */
+p {
+    --paragraphMarginBottom: 24px;
+    margin-block: 0;
+}
+
+/**
+  Внешний отступ вниз для параграфа без атрибута class,
+  который расположен не последним среди своих соседних элементов
+ */
+:where(p:not([class]):not(:last-child)) {
+    margin-bottom: var(--paragraphMarginBottom);
+}
+
+/**
+  Упрощаем работу с изображениями и видео
+ */
+img,
+video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/**
+  Наследуем свойства шрифт для полей ввода
+ */
+input,
+textarea,
+select,
+button {
+    font: inherit;
+}
+
+html {
+    /**
+   Пригодится в большинстве ситуаций
+   (когда, например, нужно будет "прижать" футер к низу сайта)
+  */
+    height: 100%;
+    /**
+   Убираем скачок интерфейса по горизонтали
+   при появлении / исчезновении скроллбара
+  */
+    scrollbar-gutter: stable;
+}
+
+/**
+  Плавный скролл
+ */
+html,
+:has(:target) {
+    scroll-behavior: smooth;
+}
+
 body {
-  background: #111010;
-  font-family: "Ubuntu", sans-serif;
-  overflow: hidden;
+    /**
+   Пригодится в большинстве ситуаций
+   (когда, например, нужно будет "прижать" футер к низу сайта)
+  */
+    min-height: 100%;
+    /**
+   Унифицированный интерлиньяж
+  */
+    line-height: 1.5;
+}
+
+/**
+  Нормализация высоты элемента ссылки при его инспектировании в DevTools
+ */
+a:where([class]) {
+    display: inline-flex;
+}
+
+/**
+  Курсор-рука при наведении на элемент
+ */
+button,
+label {
+    cursor: pointer;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+  (за исключением тех, у которых уже указан
+  атрибут fill со значением 'none' или начинается с 'url')
+ */
+:where([fill]:not([fill="none"], [fill^="url"])) {
+    fill: currentColor;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+  (за исключением тех, у которых уже указан
+  атрибут stroke со значением 'none')
+ */
+:where([stroke]:not([stroke="none"], [stroke^="url"])) {
+    stroke: currentColor;
+}
+
+/**
+  Чиним баг задержки смены цвета при взаимодействии с svg-элементами
+ */
+svg * {
+    transition-property: fill, stroke;
+}
+
+/**
+  Приведение рамок таблиц в классический 'collapse' вид
+ */
+:where(table) {
+    border-collapse: collapse;
+    border-color: currentColor;
+}
+
+/**
+  Удаляем все анимации и переходы для людей,
+  которые предпочитают их не использовать
+ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+@font-face {
+    font-family: "Ubuntu";
+    src: url("/fonts/Ubuntu-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+body {
+    background: #111010;
+    font-family: "Ubuntu", sans-serif;
+    overflow: hidden;
 }
 
 .container {
-  width: 100%;
-  height: 100vh;
-  background: #423f3b;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.player {
-  background: #070c08;
-  width: 400px;
-  padding: 25px 35px;
-  text-align: center;
-  border-radius: 10%;
-}
-.player__nav {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 30px;
-  /* padding: 20px; */
-}
-.player__nav-left {
-  display: flex;
-}
-.player__nav-right {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease;
-}
-.player__nav-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #333030;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.player__nav-button svg {
-  width: 20px;
-  aspect-ratio: 1;
-}
-.player__nav.volume-active .player__nav-right {
-  transform: translateX(-60px);
-}
-.player__nav.volume-active .player__nav-right .player__volume {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.3s, visibility 0.3s;
-}
-.player__volume {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: rotate(-90deg) translateX(-50%) translateY(100px);
-  height: 80px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-}
-.player__time {
-  display: flex;
-  color: #57f72f;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
+    width: 100%;
+    height: 100vh;
+    background: #423f3b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .circle {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  background: #333030;
-  color: #57f72f;
-  box-shadow: 0 5px 10px rgba(92, 165, 110, 0.32);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background: #333030;
+    color: #57f72f;
+    box-shadow: 0 5px 10px rgba(92, 165, 110, 0.32);
 }
 
-#repeatBtn svg, #mixBtn svg {
-  color: #555252;
-  transition: transform 0.8s ease;
+.player {
+    background: #070c08;
+    width: min(450px, 100%);
+    padding: 25px 35px;
+    text-align: center;
+    border-radius: 10%;
 }
-#repeatBtn.active svg, #mixBtn.active svg {
-  color: currentColor;
+
+.player__nav {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 30px;
+}
+.player__nav-left {
+    display: flex;
+}
+.player__nav-right {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+.player__nav-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #333030;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.player__nav-button svg {
+    width: 20px;
+    aspect-ratio: 1;
+}
+.player__nav.volume-active .player__nav-right {
+    transform: translateX(-60px);
+}
+.player__nav.volume-active .player__nav-right .player__volume {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.player__volume {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(-90deg) translateX(-50%) translateY(100px);
+    height: 80px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+#repeatBtn svg,
+#mixBtn svg {
+    color: #555252;
+    transition: transform 0.8s ease;
+}
+#repeatBtn.active svg,
+#mixBtn.active svg {
+    color: currentColor;
 }
 
 #repeatBtn.active svg {
-  transform: rotate(360deg);
+    transform: rotate(360deg);
 }
 
 .player__cover {
-  width: 220px;
-  border-radius: 50%;
-  border: 8px solid #333030;
-  box-shadow: 0 10px 60px rgba(13, 180, 13, 0.42);
+    display: block;
+    margin: 0 auto;
+    width: 220px;
+    border-radius: 50%;
+    border: 8px solid #333030;
+    box-shadow: 0 10px 60px rgba(13, 180, 13, 0.42);
 }
-
-.player h1 {
-  font-size: 20px;
-  font-weight: 400;
-  color: #fff;
-  margin-top: 20px;
+.player__title {
+    font-size: 20px;
+    font-weight: 400;
+    color: #fff;
+    margin-top: 20px;
 }
-
-.player p {
-  font-size: 14px;
-  color: #fff;
+.player__artist {
+    font-size: 14px;
+    color: #fff;
 }
 
 .player__seekbar {
-  display: flex;
-  align-items: center;
-  margin: 40px 0 20px;
-  height: 30px;
+    display: flex;
+    align-items: center;
+    margin: 40px 0 20px;
+    height: 30px;
 }
-
 .player__seekbar-range {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-       appearance: none;
-  width: 100%;
-  height: 30px;
-  background: transparent;
-  cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 30px;
+    background: transparent;
+    cursor: pointer;
 }
 .player__seekbar-range::-webkit-slider-runnable-track {
-  height: 6px;
-  background: #57f72f;
-  border-radius: 4px;
+    height: 6px;
+    background: #57f72f;
+    border-radius: 4px;
 }
 .player__seekbar-range::-moz-range-track {
-  height: 6px;
-  background: #57f72f;
-  border-radius: 4px;
+    height: 6px;
+    background: #57f72f;
+    border-radius: 4px;
 }
 .player__seekbar-range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 8px solid #333030;
-  background: #57f72f;
-  box-shadow: 0 5px 5px rgba(92, 165, 110, 0.32);
-  margin-top: -12px;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 8px solid #333030;
+    background: #57f72f;
+    box-shadow: 0 5px 5px rgba(92, 165, 110, 0.32);
+    margin-top: -12px;
 }
 .player__seekbar-range::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 8px solid #333030;
-  background: #57f72f;
-  box-shadow: 0 5px 5px rgba(92, 165, 110, 0.32);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 8px solid #333030;
+    background: #57f72f;
+    box-shadow: 0 5px 5px rgba(92, 165, 110, 0.32);
+}
+
+.player__time {
+    display: flex;
+    color: #57f72f;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 .player__controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .player__control {
-  position: relative;
-  width: 60px;
-  height: 60px;
-  margin: 20px;
-  background: #333030;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  border: none;
-  color: #57f72f;
-  box-shadow: 0 10px 20px rgba(92, 165, 110, 0.32);
-  cursor: pointer;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: 20px;
+    background: #333030;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: none;
+    color: #57f72f;
+    box-shadow: 0 10px 20px rgba(92, 165, 110, 0.32);
+    cursor: pointer;
 }
 .player__control--play {
-  transform: scale(1.5);
-  background: #57f72f;
-  position: relative;
-  color: #333030;
+    transform: scale(1.5);
+    background: #57f72f;
+    position: relative;
+    color: #333030;
 }
 .player__control--play .icon-play {
-  display: block;
+    display: block;
 }
 .player__control--play .icon-pause {
-  display: none;
+    display: none;
 }
 .player__control--play.playing .icon-play {
-  display: none;
+    display: none;
 }
 .player__control--play.playing .icon-pause {
-  display: block;
+    display: block;
 }
 .player__control--next svg {
-  transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 .player__control svg {
-  width: 30px;
-  height: 25px;
-}/*# sourceMappingURL=style.css.map */
+    width: 30px;
+    height: 25px;
+} /*# sourceMappingURL=style.css.map */

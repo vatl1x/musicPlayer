@@ -1,0 +1,81 @@
+
+.player__nav{
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 30px;
+
+    &-left{
+        display: flex;
+    }
+
+    &-right{
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.3s ease;
+    }
+
+    &-button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg{
+            width: 20px;
+            aspect-ratio: 1;
+        }
+    
+        background: #333030;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s
+
+        //hover active
+    }
+
+    &.volume-active{
+        .player__nav-right{
+            transform: translateX(-60px);
+
+            .player__volume{
+                opacity: 1;
+                visibility: visible; 
+                transition: opacity 0.3s, visibility 0.3s;   
+            }
+        }
+    }
+}
+.player__volume{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(-90deg) translateX(-50%) translateY(100px);
+    height: 80px;
+    opacity: 0;
+    visibility: hidden; 
+    transition: opacity 0.3s, visibility 0.3s;       
+}
+
+//переделать на классы вместо id
+#repeatBtn, #mixBtn{
+    svg {
+        color: #555252;
+        transition: transform 0.8s ease;
+    }
+    &.active{
+        svg{
+            color: currentColor;
+        }
+    }
+}
+#repeatBtn.active{
+    svg{
+        transform: rotate(360deg) ;
+    }
+}

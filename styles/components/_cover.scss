@@ -1,0 +1,22 @@
+.player {
+    &__cover {
+        display: block;
+        margin: 0 auto;
+        width: 220px;
+        border-radius: 50%;
+        border: 8px solid #333030;
+        box-shadow: 0 10px 60px rgba(13, 180, 13, 0.42);
+    }
+
+    &__title {
+        font-size: 20px;
+        font-weight: 400;
+        color: #fff;
+        margin-top: 20px;
+    }
+
+    &__artist {
+        font-size: 14px;
+        color: #fff;
+    }
+}

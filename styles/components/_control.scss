@@ -1,0 +1,58 @@
+.player{
+    &__controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__control{
+        position: relative;
+        width: 60px;
+        height: 60px; 
+        margin: 20px;
+        background: #333030;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        border: none;
+        color: #57f72f;
+        box-shadow: 0 10px 20px rgba(92, 165, 110, 0.32);
+        cursor: pointer;
+
+        &--play{
+            transform: scale(1.5);
+            background: #57f72f;
+            position: relative;
+            color: #333030;
+
+            .icon-play {
+                display: block;
+            }
+            
+            .icon-pause {
+                display: none;
+            }
+            
+            &.playing {
+                .icon-play {
+                    display: none;
+                }
+                
+                .icon-pause {
+                    display: block;
+                }
+            }
+        }
+
+        &--next{
+            svg{
+                transform: rotate(180deg);
+            }
+        }
+        svg{
+            width: 30px;
+            height: 25px;
+        }
+    }
+}
